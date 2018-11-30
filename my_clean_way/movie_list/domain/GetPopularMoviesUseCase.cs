@@ -4,13 +4,15 @@ using my_clean_way.domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using my_clean_way.movie_list.repository;
+using my_clean_way.movie_favorites.repository;
+using System.Linq;
 
 namespace my_clean_way.movies.domain
 {
-    public class GetFavoriteMoviesUseCase : IUseCase<List<Movie>,bool>
+    public class GetPopularMoviesUseCase : IUseCase<List<Movie>,bool>
     {
         readonly IMovieListRepository _movieListRepository;
-        public GetFavoriteMoviesUseCase(IMovieListRepository movieListRepository)
+        public GetPopularMoviesUseCase(IMovieListRepository movieListRepository)
         {
             _movieListRepository = movieListRepository;
         }
@@ -19,7 +21,8 @@ namespace my_clean_way.movies.domain
         {
             var transaction = new Transaction<List<Movie>>();
             try{
-                transaction.Result = await _movieListRepository.GetPopularMovies(needMoreItems);
+                var storedList = await _movieListRepository.GetPopularMovies(needMoreItems);
+                transaction.Result = storedList;
                 transaction.Status = TransactionStatus.Success;
             }catch(Exception ex) {
                 transaction.ErrorMessage = ex.Message;

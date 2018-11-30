@@ -6,9 +6,9 @@ using Refit;
 
 namespace my_clean_way.movie_list.repository
 {
-    public interface ApiMovieDataSource
+    public interface IApiMovieDataSource
     {
         [Get("/movie/popular?page={pageNumber}&language=es-ES&api_key={apiKey}")]
-        Task<PaginableResponse<ApiMovie>> GetPopularMovies([AliasAs("pageNumber")] int pageNumber,[AliasAs("apiKey")] string apiKey]);
+        Task<PaginableResponse<ApiMovie>> GetPopularMovies([AliasAs("pageNumber")] int pageNumber,[AliasAs("apiKey")] string apiKey);
     }
 }

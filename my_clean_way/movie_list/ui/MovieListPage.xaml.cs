@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace my_clean_way.movie_list.ui
 {
-    public partial class MoviListPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class MovieListPage : ContentPage
     {
-        public MoviListPage()
+        public readonly static String Route = "MovieListPageRoute";
+        public MovieListPage()
         {
             InitializeComponent();
         }

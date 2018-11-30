@@ -3,8 +3,6 @@ namespace my_clean_way.ui
 {
     public class PageParameters
     {
-        public PageParameters()
-        {
-        }
+        public static readonly String MOVIE_PARAMETER = "movie_parameter";
     }
 }

@@ -1,32 +1,49 @@
 ﻿using System;
-using Xamarin.Forms;
+using Prism;
+using Prism.Ioc;
+using Prism.DryIoc;
 using Xamarin.Forms.Xaml;
+using my_clean_way.movie_list.ui;
+using my_clean_way.movie_list.repository;
+using Refit;
+using my_clean_way.data;
+using my_clean_way.movie_favorites.repository;
+using my_clean_way.domain;
+using System.Collections.Generic;
+using my_clean_way.movies.domain;
+using my_clean_way.ui;
+using my_clean_way.movies.ui;
+using my_clean_way.movie_favorites.domain;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace my_clean_way
 {
-    public partial class App : Application
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class App : PrismApplication
     {
-        public App()
+        public App(IPlatformInitializer initializer = null) : base(initializer) { }
+
+        protected override void OnInitialized()
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
+            NavigationService.NavigateAsync(new Uri("/" + RootView.Route + "/" +MovieListPage.Route, UriKind.Absolute));
         }
 
-        protected override void OnStart()
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            // Handle when your app starts
-        }
+            //TODO: Register your navigation and interfaces here
+            containerRegistry.RegisterForNavigation<RootView>(RootView.Route);
+            containerRegistry.RegisterForNavigation<MovieListPage, MovieListPageViewModel>(MovieListPage.Route);
+            containerRegistry.RegisterForNavigation<MoviePage, MoviePageViewModel>(MoviePage.Route);
 
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
 
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
+            //Interface registration
+            containerRegistry.RegisterSingleton<IMovieListRepository, MovieListRepository>();
+            containerRegistry.RegisterSingleton<IFavoriteMovieRepository, FavoriteMovies>();
+            containerRegistry.RegisterInstance<IApiMovieDataSource>(RestService.For<IApiMovieDataSource>(ApiUtils.API_URL_BASE));
+            containerRegistry.RegisterSingleton<IUseCase<List<Movie>, bool>, GetPopularMoviesUseCase>();
+            containerRegistry.RegisterSingleton<IUseCase<Movie, Movie>, AddMovieToFavoriteUseCase>();
+            containerRegistry.RegisterSingleton<IUseCase<bool, Movie>, IsMovieInFavoritesUseCase>();
         }
     }
 }

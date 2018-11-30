@@ -1,10 +1,14 @@
 ﻿using System;
+using Akavache.Sqlite3;
+
 namespace my_clean_way
 {
-    public class LinkerPreserve
+    public static class LinkerPreserve
     {
-        public LinkerPreserve()
+        static LinkerPreserve()
         {
+            var persistentName = typeof(SQLitePersistentBlobCache).FullName;
+            var encryptedName = typeof(SQLiteEncryptedBlobCache).FullName;
         }
     }
 }

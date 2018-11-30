@@ -6,6 +6,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Prism;
+using Prism.Ioc;
+using FFImageLoading.Forms.Droid;
 
 namespace my_clean_way.Droid
 {
@@ -19,7 +22,15 @@ namespace my_clean_way.Droid
 
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            LoadApplication(new App());
+            CachedImageRenderer.Init(false);
+            LoadApplication(new App(new AndroidInitializer()));
+        }
+    }
+    public class AndroidInitializer : IPlatformInitializer
+    {
+        public void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            //TODO: Register your service here
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace my_clean_way.movie_list.repository
+namespace my_clean_way.data
 {
     public class PaginableResponse<T>
     {

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using System.Linq;
 using my_clean_way.movies.ui;
+using my_clean_way.movie_favorites.ui;
 
 namespace my_clean_way.movie_list.ui
 {
@@ -18,12 +19,14 @@ namespace my_clean_way.movie_list.ui
     {
         readonly IUseCase<List<Movie>, bool> _getPopularMovieList;
         readonly INavigationService _navigationService;
+
         ObservableCollection<Movie> movies;
         public ObservableCollection<Movie> Movies { get => movies; set { movies = value; RaisePropertyChanged(); } }
 
         public ICommand MovieSelectedCommand => new Command<Movie>(MovieSelected,(movie) => !IsBusy);
         public ICommand SearchMoviesCommand => new Command(SearchMovies,() => !IsBusy);
         public ICommand MovieAppearingCommand => new Command<Movie>(MovieAppearing, (movie) => !IsBusy);
+        public ICommand NavigateToFavoritesCommand => new Command(() => _navigationService.NavigateAsync(FavoritesPage.Route));
 
         public MovieListPageViewModel(IUseCase<List<Movie>, bool> getPopularMovieList,
                                      INavigationService navigationService)

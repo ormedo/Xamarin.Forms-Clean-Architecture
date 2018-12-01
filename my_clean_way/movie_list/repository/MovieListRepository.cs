@@ -31,7 +31,7 @@ namespace my_clean_way.movie_list.repository
                 lastPage = 1;
             }
             var Apiresponse = await _apiMovieDataSource.GetPopularMovies(lastPage, ApiUtils.API_TOKEN);
-            var storedFavorites = await _favoriteMovieRepository.GetFavoriteMovies();
+            var storedFavorites = await _favoriteMovieRepository.GetFavoritesMovies();
             return Apiresponse.Results.Select((x) => {
                 var domain = x.toDomain();
                // domain.IsFavorite = _favoriteMovieRepository.IsMovieFavorite(domain).Result;

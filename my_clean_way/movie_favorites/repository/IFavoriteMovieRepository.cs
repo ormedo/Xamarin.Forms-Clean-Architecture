@@ -7,9 +7,9 @@ namespace my_clean_way.movie_favorites.repository
 {
     public interface IFavoriteMovieRepository
     {
-        Task<List<Movie>> GetFavoriteMovies();
+        Task<List<Movie>> GetFavoritesMovies();
         Task<bool> IsMovieFavorite(Movie movie);
-        Task<Movie> AddFavorite(Movie movie);
+        Task<Movie> AddToFavorites(Movie movie);
         Task<Boolean> RemoveFavorite(Movie movie);
     }
 }

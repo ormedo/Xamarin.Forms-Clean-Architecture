@@ -40,8 +40,10 @@
     <Compile Remove="movie_list\repository\LocalDataSource.cs" />
     <Compile Remove="movies\ui\HomePage.xaml.cs" />
     <Compile Remove="ui\TabPageViewModelBase.cs" />
+    <Compile Remove="MainPage.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="movies\ui\HomePage.xaml" />
+    <EmbeddedResource Remove="MainPage.xaml" />
   </ItemGroup>
 </Project>

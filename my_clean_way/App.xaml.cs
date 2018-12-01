@@ -14,6 +14,7 @@ using my_clean_way.movies.domain;
 using my_clean_way.ui;
 using my_clean_way.movies.ui;
 using my_clean_way.movie_favorites.domain;
+using my_clean_way.movie_favorites.ui;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace my_clean_way
@@ -35,15 +36,17 @@ namespace my_clean_way
             containerRegistry.RegisterForNavigation<RootView>(RootView.Route);
             containerRegistry.RegisterForNavigation<MovieListPage, MovieListPageViewModel>(MovieListPage.Route);
             containerRegistry.RegisterForNavigation<MoviePage, MoviePageViewModel>(MoviePage.Route);
+            containerRegistry.RegisterForNavigation<FavoritesPage, FavoritesPageViewModel>(FavoritesPage.Route);
 
 
             //Interface registration
             containerRegistry.RegisterSingleton<IMovieListRepository, MovieListRepository>();
-            containerRegistry.RegisterSingleton<IFavoriteMovieRepository, FavoriteMovies>();
+            containerRegistry.RegisterSingleton<IFavoriteMovieRepository, FavoriteMoviesAkavacheDataSource>();
             containerRegistry.RegisterInstance<IApiMovieDataSource>(RestService.For<IApiMovieDataSource>(ApiUtils.API_URL_BASE));
             containerRegistry.RegisterSingleton<IUseCase<List<Movie>, bool>, GetPopularMoviesUseCase>();
-            containerRegistry.RegisterSingleton<IUseCase<Movie, Movie>, AddMovieToFavoriteUseCase>();
+            containerRegistry.RegisterSingleton<IUseCase<Movie, Movie>, ChangeFavoriteStatusUseCase>();
             containerRegistry.RegisterSingleton<IUseCase<bool, Movie>, IsMovieInFavoritesUseCase>();
+            containerRegistry.RegisterSingleton<IUseCase<List<Movie>, EmptyParameter>, GetFavoritesMoviesUseCase>();
         }
     }
 }

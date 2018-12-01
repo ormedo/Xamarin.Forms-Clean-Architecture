@@ -7,8 +7,10 @@
              prism:ViewModelLocator.AutowireViewModel="True" 
              xmlns:ffi="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
              Title="Populares">
+     <ContentPage.ToolbarItems>
+        <ToolbarItem  Text="Favoritos" Command="{Binding NavigateToFavoritesCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
             <ListView ItemsSource="{Binding Movies}" SeparatorVisibility="None" HasUnevenRows="true">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -27,6 +29,5 @@
                     <prismbehavior:EventToCommandBehavior EventName="ItemAppearing" Command="{Binding MovieAppearingCommand}" EventArgsParameterPath="Item" />
                 </ListView.Behaviors>
             </ListView>
-        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
